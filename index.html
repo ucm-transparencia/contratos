@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contratos — Portal de Transparencia UCM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ────────────────────────────────────────────────── */
+:root {
+  --ucm:        #b71234;
+  --ucm-d:      #8b0d27;
+  --ucm-dd:     #5c0819;
+  --ucm-l:      #f5e6ea;
+  --ucm-ll:     #fdf4f6;
+  --gris:       #1c1c2e;
+  --gris-m:     #5a6478;
+  --gris-c:     #f0f3f7;
+  --gris-b:     #e4e9f0;
+  --blanco:     #ffffff;
+  --verde:      #166534;
+  --verde-l:    #dcfce7;
+  --fn:         'Source Sans 3', system-ui, sans-serif;
+  --fd:         'Playfair Display', Georgia, serif;
+  --fm:         'Source Code Pro', monospace;
+  --dur:        .32s;
+  --ease:       cubic-bezier(.4,0,.2,1);
+  --sh-s:       0 1px 4px rgba(0,0,0,.06);
+  --sh-m:       0 4px 20px rgba(0,0,0,.08);
+  --sh-l:       0 8px 40px rgba(0,0,0,.12);
+}
+
+/* ─── RESET ─────────────────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box }
+html { scroll-behavior:smooth; font-size:15px }
+body {
+  font-family: var(--fn);
+  background: var(--gris-c);
+  color: var(--gris);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+a { color: inherit; text-decoration: none }
+
+/* ─── HERO HEADER ───────────────────────────────────────────── */
+.hero {
+  background: linear-gradient(135deg, var(--ucm-dd) 0%, var(--ucm) 55%, #d4294f 100%);
+  color: var(--blanco);
+  padding: 32px 40px 28px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+.hero-inner {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+.hero-icon {
+  width: 52px; height: 52px;
+  background: rgba(255,255,255,.15);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.hero-text h1 {
+  font-family: var(--fd);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.01em;
+  margin-bottom: 6px;
+}
+.hero-text p {
+  font-size: .85rem;
+  opacity: .75;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+/* ─── LAYOUT ────────────────────────────────────────────────── */
+.layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+@media (max-width: 780px) {
+  .layout { grid-template-columns: 1fr; padding: 16px 14px 40px }
+  .sidebar { display: none }
+  .hero { padding: 24px 20px 20px }
+  .hero-text h1 { font-size: 1.3rem }
+}
+
+/* ─── SIDEBAR ───────────────────────────────────────────────── */
+.sidebar {
+  position: sticky;
+  top: 16px;
+  background: var(--blanco);
+  border-radius: 12px;
+  border: 1px solid var(--gris-b);
+  overflow: hidden;
+  box-shadow: var(--sh-s);
+}
+.sidebar-hdr {
+  background: linear-gradient(135deg, var(--ucm-dd), var(--ucm));
+  color: var(--blanco);
+  padding: 12px 16px;
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+.nav-list { list-style: none; padding: 8px 0 }
+.nav-item a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--gris-m);
+  transition: all var(--dur) var(--ease);
+  border-left: 3px solid transparent;
+}
+.nav-item a:hover,
+.nav-item a.active {
+  color: var(--ucm);
+  background: var(--ucm-ll);
+  border-left-color: var(--ucm);
+}
+.nav-item a .nav-num {
+  font-family: var(--fm);
+  font-size: .68rem;
+  background: var(--gris-c);
+  color: var(--gris-m);
+  padding: 1px 5px;
+  border-radius: 4px;
+  min-width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+  transition: all var(--dur) var(--ease);
+}
+.nav-item a:hover .nav-num,
+.nav-item a.active .nav-num {
+  background: var(--ucm-l);
+  color: var(--ucm);
+}
+.nav-item.sub a { padding-left: 28px; font-size: .78rem }
+.nav-divider { height: 1px; background: var(--gris-b); margin: 4px 0 }
+.nav-item.verde a:hover, .nav-item.verde a.active {
+  color: var(--verde);
+  background: var(--verde-l);
+  border-left-color: var(--verde);
+}
+
+/* ─── MAIN CONTENT ──────────────────────────────────────────── */
+.content { display: flex; flex-direction: column; gap: 20px }
+
+/* ─── SECTION ───────────────────────────────────────────────── */
+.section {
+  background: var(--blanco);
+  border-radius: 14px;
+  border: 1px solid var(--gris-b);
+  overflow: hidden;
+  box-shadow: var(--sh-s);
+  transition: box-shadow var(--dur) var(--ease);
+}
+.section:hover { box-shadow: var(--sh-m) }
+
+.section-hdr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid transparent;
+  transition: all var(--dur) var(--ease);
+  background: var(--blanco);
+}
+.section-hdr:hover { background: var(--ucm-ll) }
+.section.open .section-hdr {
+  border-bottom-color: var(--gris-b);
+  background: var(--ucm-ll);
+}
+
+.section-hdr-icon {
+  width: 34px; height: 34px;
+  background: var(--ucm-l);
+  color: var(--ucm);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  transition: all var(--dur) var(--ease);
+}
+.section.open .section-hdr-icon {
+  background: var(--ucm);
+  color: var(--blanco);
+}
+
+.section-hdr-text { flex: 1 }
+.section-hdr-text h2 {
+  font-family: var(--fd);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gris);
+  line-height: 1.2;
+}
+.section-hdr-text span {
+  font-size: .75rem;
+  color: var(--gris-m);
+  margin-top: 1px;
+  display: block;
+}
+
+.section-chevron {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gris-m);
+  transition: transform var(--dur) var(--ease);
+  flex-shrink: 0;
+}
+.section.open .section-chevron { transform: rotate(180deg) }
+
+/* ─── SECTION BODY ──────────────────────────────────────────── */
+.section-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .35s var(--ease);
+}
+.section.open .section-body { grid-template-rows: 1fr }
+.section-body-inner { overflow: hidden }
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  padding: 16px 20px 20px;
+}
+.cards-grid.cols-2 { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) }
+.cards-grid.cols-3 { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) }
+
+/* ─── CARD ──────────────────────────────────────────────────── */
+.card {
+  background: var(--gris-c);
+  border: 1px solid var(--gris-b);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all var(--dur) var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--ucm);
+  border-radius: 0 2px 2px 0;
+  transform: scaleY(0);
+  transition: transform var(--dur) var(--ease);
+  transform-origin: bottom;
+}
+.card:hover {
+  background: var(--blanco);
+  border-color: var(--ucm-l);
+  box-shadow: var(--sh-m);
+  transform: translateY(-1px);
+}
+.card:hover::before { transform: scaleY(1) }
+.card.verde::before { background: var(--verde) }
+.card.verde:hover { border-color: var(--verde-l) }
+
+.card-title {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--gris);
+  line-height: 1.35;
+}
+.card-desc {
+  font-size: .77rem;
+  color: var(--gris-m);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.card-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 2px }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: .73rem;
+  font-weight: 700;
+  font-family: var(--fn);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: all var(--dur) var(--ease);
+  border: none;
+  white-space: nowrap;
+}
+.btn-rojo { background: var(--ucm); color: var(--blanco) }
+.btn-rojo:hover { background: var(--ucm-d); transform: translateY(-1px); box-shadow: 0 3px 10px rgba(183,18,52,.3) }
+.btn-verde { background: var(--verde); color: var(--blanco) }
+.btn-verde:hover { background: #14532d; transform: translateY(-1px); box-shadow: 0 3px 10px rgba(22,101,52,.3) }
+.btn-ghost {
+  background: transparent;
+  color: var(--ucm);
+  border: 1.5px solid var(--ucm-l);
+}
+.btn-ghost:hover { background: var(--ucm-l); border-color: var(--ucm) }
+
+/* ─── SPECIAL: PLATAFORMA FULL WIDTH ────────────────────────── */
+.card-wide {
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+.card-wide .card-icon {
+  width: 42px; height: 42px;
+  background: var(--ucm-l);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.card-wide .card-body { flex: 1 }
+
+/* ─── UNIVERSIDATA BLOCK ────────────────────────────────────── */
+.universidata {
+  background: linear-gradient(135deg, #e0f0ff 0%, #dbeafe 100%);
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 20px 20px;
+}
+.universidata-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+.universidata p {
+  font-size: .85rem;
+  color: #1e40af;
+  line-height: 1.5;
+  flex: 1;
+}
+.universidata strong { font-weight: 700 }
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+.footer {
+  background: var(--blanco);
+  border-top: 1px solid var(--gris-b);
+  padding: 18px 40px;
+  font-size: .77rem;
+  color: var(--gris-m);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  text-align: center;
+  line-height: 1.6;
+}
+.footer a {
+  color: var(--ucm-d);
+  text-decoration: underline;
+  text-decoration-color: rgba(183,18,52,.25);
+  transition: text-decoration-color var(--dur);
+}
+.footer a:hover { text-decoration-color: var(--ucm) }
+
+/* ─── BACK TO TOP ─────────────────────────────────────────────── */
+#backTop {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--ucm);
+  color: var(--blanco);
+  border: none;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: 0 4px 16px rgba(183,18,52,.35);
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--dur) var(--ease);
+  opacity: 0; pointer-events: none;
+  z-index: 100;
+}
+#backTop.visible { opacity: 1; pointer-events: auto }
+#backTop:hover { background: var(--ucm-d); transform: translateY(-2px) }
+
+/* ─── ANIMATIONS ─────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(16px) }
+  to   { opacity:1; transform:translateY(0) }
+}
+.section {
+  opacity: 0;
+  animation: fadeUp .45s var(--ease) forwards;
+}
+.section:nth-child(1) { animation-delay: .05s }
+.section:nth-child(2) { animation-delay: .10s }
+.section:nth-child(3) { animation-delay: .15s }
+.section:nth-child(4) { animation-delay: .20s }
+.section:nth-child(5) { animation-delay: .25s }
+.section:nth-child(6) { animation-delay: .30s }
+.section:nth-child(7) { animation-delay: .35s }
+.section:nth-child(8) { animation-delay: .40s }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero" id="inicio">
+  <div class="hero-inner">
+    <div class="hero-icon">📄</div>
+    <div class="hero-text">
+      <h1>Contratos</h1>
+      <p>Información sobre la actividad contractual de la UCM en cumplimiento de la Ley 9/2017 de Contratos del Sector Público y demás normativa aplicable en materia de transparencia.</p>
+    </div>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR NAV -->
+  <nav class="sidebar" aria-label="Navegación de contratos">
+    <div class="sidebar-hdr">Índice de contenidos</div>
+    <ul class="nav-list">
+      <li class="nav-item"><a href="#perfil"><span class="nav-num">1</span> Perfil del contratante</a></li>
+      <li class="nav-item"><a href="#plataforma"><span class="nav-num">2</span> Plataforma PLACSP</a></li>
+      <li class="nav-item"><a href="#adjudicatarios"><span class="nav-num">3</span> Adjudicatarios</a></li>
+      <li class="nav-item"><a href="#relacion"><span class="nav-num">4</span> Relación de contratos</a></li>
+      <li class="nav-item sub"><a href="#menores">a. Menores y emergencias</a></li>
+      <li class="nav-item sub"><a href="#acuerdos">b. Acuerdos marco</a></li>
+      <li class="nav-item sub"><a href="#adjudicados">c. Contratos adjudicados</a></li>
+      <li class="nav-item sub"><a href="#obras">d. Contratos de obras</a></li>
+      <li class="nav-item"><a href="#modificaciones"><span class="nav-num">5</span> Modificaciones y prórrogas</a></li>
+      <li class="nav-item"><a href="#facturacion"><span class="nav-num">6</span> Facturación anual</a></li>
+      <li class="nav-item"><a href="#procedimiento"><span class="nav-num">7</span> Procedimiento adjudicación</a></li>
+      <li class="nav-divider"></li>
+      <li class="nav-item verde"><a href="#concesiones"><span class="nav-num">8</span> Concesiones</a></li>
+      <li class="nav-item verde"><a href="#encomiendas"><span class="nav-num">9</span> Encomiendas</a></li>
+      <li class="nav-item verde"><a href="#universidata"><span class="nav-num">10</span> UniversiDATA</a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="content">
+
+    <!-- 1. PERFIL DEL CONTRATANTE -->
+    <div class="section open" id="perfil">
+      <div class="section-hdr" onclick="toggle(this)" aria-expanded="true">
+        <div class="section-hdr-icon">🏛️</div>
+        <div class="section-hdr-text">
+          <h2>Perfil del contratante</h2>
+          <span>Información del órgano de contratación, normativa y planes</span>
+        </div>
+        <div class="section-chevron">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+          <div class="cards-grid cols-3">
+            <div class="card">
+              <div class="card-title">Información general del Órgano de Contratación</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/informacion-general-organo-contratacion" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver información general del Órgano de Contratación">Ver →</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Procedimientos de contratación</div>
+              <div class="card-desc">Gestión de los contratos</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/tipos-de-contratos" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver procedimientos de contratación">Ver →</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Plan de medidas antifraude</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/file/plan-de-medidas-antifraude" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar Plan de medidas antifraude en PDF">⬇ PDF</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Factura electrónica en la UCM</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/ucpe/factura-electronica" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver información sobre factura electrónica">Ver →</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Normativa de aplicación</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/normativa-de-aplicacion" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver normativa de aplicación">Ver →</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Licitaciones anteriores a la Ley 9/2017</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/contratos" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver licitaciones anteriores a la Ley 9/2017">Ver →</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Plan de contratación UCM 2026</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/file/plan-contratacion" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar Plan de contratación UCM 2026 en PDF">⬇ PDF</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. PLATAFORMA -->
+    <div class="section" id="plataforma">
+      <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
+        <div class="section-hdr-icon">🔗</div>
+        <div class="section-hdr-text">
+          <h2>Plataforma de Contratación del Sector Público</h2>
+          <span>Acceso a todos los expedientes de contratación pública de la UCM</span>
+        </div>
+        <div class="section-chevron">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+          <div style="padding:16px 20px 20px">
+            <div class="card card-wide">
+              <div class="card-icon">🏛️</div>
+              <div class="card-body">
+                <div class="card-title">Plataforma de Contratación del Estado</div>
+                <div class="card-desc">Consulte todos los expedientes de contratación pública de la UCM en el portal oficial del Estado.</div>
+              </div>
+              <div class="card-actions">
+                <a href="https://contrataciondelestado.es/wps/portal/plataforma" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Acceder a la Plataforma de Contratación del Sector Público">Acceder ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. ADJUDICATARIOS -->
+    <div class="section" id="adjudicatarios">
+      <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
+        <div class="section-hdr-icon">🏢</div>
+        <div class="section-hdr-text">
+          <h2>Adjudicatarios</h2>
+          <span>Empresas adjudicatarias de contratos por ejercicio</span>
+        </div>
+        <div class="section-chevron">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+          <div style="padding:16px 20px 20px">
+            <div class="card card-wide">
+              <div class="card-icon">📋</div>
+              <div class="card-body">
+                <div class="card-title">Listado de adjudicatarios por ejercicio</div>
+                <div class="card-desc">Consulte las empresas y personas que han resultado adjudicatarias de los contratos de la UCM (2021–2025).</div>
+              </div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/adjudicatarios-contratos" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver listado de adjudicatarios">Ver →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. RELACIÓN DE CONTRATOS -->
+    <div class="section" id="relacion">
+      <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
+        <div class="section-hdr-icon">📂</div>
+        <div class="section-hdr-text">
+          <h2>Relación de contratos</h2>
+          <span>Menores, acuerdos marco, adjudicados y contratos de obras</span>
+        </div>
+        <div class="section-chevron">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+          <div class="cards-grid cols-2">
+            <div class="card" id="menores">
+              <div class="card-title">Contratos menores, privados y emergencias</div>
+              <div class="card-desc">Relación de contratos menores formalizados por la UCM por ejercicio.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/contratos-menores-privados-emergencias" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver contratos menores, privados y emergencias">Ver →</a>
+              </div>
+            </div>
+            <div class="card" id="acuerdos">
+              <div class="card-title">Contratos basados en Acuerdos Marco</div>
+              <div class="card-desc">Contratos adjudicados a través de acuerdos marco vigentes.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/contratos-acuerdos-marco" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver contratos basados en acuerdos marco">Ver →</a>
+              </div>
+            </div>
+            <div class="card" id="adjudicados">
+              <div class="card-title">Contratos adjudicados</div>
+              <div class="card-desc">Procedimientos abiertos y negociados. Contratos formalizados por la UCM mediante licitación.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/contratos-adjudicados" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver contratos adjudicados">Ver →</a>
+              </div>
+            </div>
+            <div class="card" id="obras">
+              <div class="card-title">Contratos de obras</div>
+              <div class="card-desc">Relación de contratos de obras adjudicados por la UCM por ejercicio.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/contratos-obras" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver contratos de obras">Ver →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. MODIFICACIONES, PRÓRROGAS Y DESISTIMIENTOS -->
+    <div class="section" id="modificaciones">
+      <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
+        <div class="section-hdr-icon">🔄</div>
+        <div class="section-hdr-text">
+          <h2>Modificaciones, prórrogas y desistimientos</h2>
+          <span>Alteraciones en los contratos formalizados</span>
+        </div>
+        <div class="section-chevron">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+          <div class="cards-grid cols-3">
+            <div class="card">
+              <div class="card-title">Modificaciones de contratos</div>
+              <div class="card-desc">Cambios en el objeto, precio o plazo de contratos ya adjudicados.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/modificaciones-de-contratos" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver modificaciones de contratos">Ver →</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Prórrogas de contratos</div>
+              <div class="card-desc">Extensión de la duración de contratos en vigor.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/prorrogas-de-contratos" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver prórrogas de contratos">Ver →</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Desistimientos</div>
+              <div class="card-desc">Contratos en los que la UCM ha desistido del procedimiento de adjudicación.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/desistimientos" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver desistimientos de contratos">Ver →</a>
+              </div>
+            </div>
+          </div>
+          <!-- Información relacionada: Resoluciones y Penalidades -->
+          <div style="padding:0 20px 20px">
+            <div style="background:var(--verde-l);border:1px solid #bbf7d0;border-radius:10px;padding:14px 16px">
+              <p style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--verde);margin-bottom:10px">Información relacionada</p>
+              <div style="display:flex;flex-wrap:wrap;gap:10px">
+                <div class="card verde" style="flex:1;min-width:200px">
+                  <div class="card-title">Resoluciones de contratos</div>
+                  <div class="card-desc">Extinción anticipada de contratos por las causas previstas en la ley.</div>
+                  <div class="card-actions">
+                    <a href="https://www.ucm.es/portaldetransparencia/resoluciones" class="btn btn-verde" target="_blank" rel="noopener" aria-label="Ver resoluciones de contratos">Ver →</a>
+                  </div>
+                </div>
+                <div class="card verde" style="flex:1;min-width:200px">
+                  <div class="card-title">Penalidades</div>
+                  <div class="card-desc">Sanciones económicas impuestas a contratistas por incumplimiento.</div>
+                  <div class="card-actions">
+                    <a href="https://www.ucm.es/portaldetransparencia/penalidades-contratos" class="btn btn-verde" target="_blank" rel="noopener" aria-label="Ver penalidades de contratos">Ver →</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. FACTURACIÓN ANUAL -->
+    <div class="section" id="facturacion">
+      <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
+        <div class="section-hdr-icon">🧾</div>
+        <div class="section-hdr-text">
+          <h2>Informe de facturación anual</h2>
+          <span>Datos anuales de facturación de la actividad contractual</span>
+        </div>
+        <div class="section-chevron">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+          <div style="padding:16px 20px 20px">
+            <div class="card card-wide">
+              <div class="card-icon">📊</div>
+              <div class="card-body">
+                <div class="card-title">Informe de facturación anual — Ejercicios anteriores</div>
+                <div class="card-desc">Consulte los informes de facturación anuales de la UCM facilitados por la Vicegerencia Económica.</div>
+              </div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/informe-facturacion-anual" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver ejercicios anteriores de facturación anual">Ver →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. PROCEDIMIENTO DE ADJUDICACIÓN -->
+    <div class="section" id="procedimiento">
+      <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
+        <div class="section-hdr-icon">📈</div>
+        <div class="section-hdr-text">
+          <h2>Procedimiento de adjudicación</h2>
+          <span>Estadísticas e informes por importe y número de contratos</span>
+        </div>
+        <div class="section-chevron">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+          <div class="cards-grid cols-3">
+            <div class="card">
+              <div class="card-title">Contratos formalizados por importe</div>
+              <div class="card-desc">Distribución de los contratos adjudicados según el tipo de procedimiento y el importe.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/informe-contratos-procedimientos-adjudicacion" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver contratos formalizados por importe">Ver →</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Contratos formalizados por número</div>
+              <div class="card-desc">Distribución de los contratos adjudicados según el tipo de procedimiento y número de contratos.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/contratos-formalizados-numero" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver contratos formalizados por número">Ver →</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Datos estadísticos</div>
+              <div class="card-desc">Gráficos interactivos sobre contratos por tipo de procedimiento y contrato, en número e importe.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/estadisticas-contratos" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver datos estadísticos de contratos">Ver →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. CONCESIONES -->
+    <div class="section" id="concesiones">
+      <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
+        <div class="section-hdr-icon">🏗️</div>
+        <div class="section-hdr-text">
+          <h2>Concesiones administrativas y demaniales</h2>
+          <span>Contratos de concesión de obras o servicios y concesiones directas</span>
+        </div>
+        <div class="section-chevron">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+          <div class="cards-grid cols-3">
+            <div class="card">
+              <div class="card-title">Contratos de concesiones de obras o de servicios</div>
+              <div class="card-desc">Ejercicio 2024</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/file/concesion-2024" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver concesiones 2024">Ver →</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Concesión directa — Cuartel de Inválidos y Voluntarios a Caballo</div>
+              <div class="card-desc">San Lorenzo de El Escorial</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/file/convenio_slorenzoescorial_concesion_o_c" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar concesión directa San Lorenzo de El Escorial">⬇ PDF</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Concesión demanial — Aparcamiento subterráneo Plaza Ramón y Cajal</div>
+              <div class="card-desc">Ciudad Universitaria</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/file/acuerdoconcesiondemanial_parking-cu_o" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar concesión demanial aparcamiento Ciudad Universitaria">⬇ PDF</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. ENCOMIENDAS -->
+    <div class="section" id="encomiendas">
+      <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
+        <div class="section-hdr-icon">🤝</div>
+        <div class="section-hdr-text">
+          <h2>Encomiendas de gestión y encargos a medios propios</h2>
+          <span>Convenios y encargos institucionales</span>
+        </div>
+        <div class="section-chevron">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+          <div class="cards-grid cols-2">
+            <div class="card">
+              <div class="card-title">Encargo UCM a la FGUCM (medio propio)</div>
+              <div class="card-desc">Gestión y desarrollo de proyectos y actividades 2021–2025.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/file/encargo-mp-fgucm-2021-2025" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar encargo UCM a FGUCM">⬇ PDF</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Convenio UCM – Fundación MADRIMASD</div>
+              <div class="card-desc">Encomienda para evaluación de solicitudes de cambio de área de conocimiento del PDI.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/file/encomienda-de-gestion-madrimasd" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar convenio UCM MADRIMASD">⬇ PDF</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Encomienda de gestión ANECA – UCM</div>
+              <div class="card-desc">Evaluación de la actividad investigadora del PDI contratado.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/file/encomiendaaneca" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar encomienda de gestión ANECA">⬇ PDF</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Prórroga del encargo UCM a la FGUCM</div>
+              <div class="card-desc">Resolución del Rector: prórroga del encargo a medio propio.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/file/prorroga-encargo-fgucm-1" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar prórroga encargo FGUCM">⬇ PDF</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. UNIVERSIDATA -->
+    <div class="section" id="universidata">
+      <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
+        <div class="section-hdr-icon">🔢</div>
+        <div class="section-hdr-text">
+          <h2>UniversiDATA. Licitaciones contratos mayores</h2>
+          <span>Portal de datos abiertos del Centro de Inteligencia Institucional</span>
+        </div>
+        <div class="section-chevron">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+          <div class="universidata">
+            <div class="universidata-icon">📡</div>
+            <p>En el Portal de datos abiertos puede obtenerse información sobre licitaciones de contratos mayores de la UCM.
+              Gestionado por el <a href="https://ucm.es/cii" style="color:#1d4ed8;font-weight:600" target="_blank" rel="noopener">Centro de Inteligencia Institucional</a>.</p>
+            <a href="https://www.universidata.es/datasets/ucm-licitaciones-de-contratos-mayores" class="btn" style="background:#1d4ed8;color:#fff;flex-shrink:0" target="_blank" rel="noopener" aria-label="Acceder a UniversiDATA licitaciones contratos mayores">Acceder ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>Datos facilitados y extraídos de la <a href="https://www.ucm.es/directorio/?eid=1003" target="_blank" rel="noopener">Dirección de la Contratación Administrativa ↗</a></div>
+  <div>Informe de facturación anual facilitado por la <a href="https://www.ucm.es/directorio/?eid=962" target="_blank" rel="noopener">Vicegerencia Económica ↗</a></div>
+  <div>UniversiDATA: portal de datos abiertos del <a href="https://ucm.es/cii" target="_blank" rel="noopener">Centro de Inteligencia Institucional ↗</a></div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver al inicio">↑</button>
+
+<script>
+// ── Toggle sections ─────────────────────────────────────────
+function toggle(hdr) {
+  const section = hdr.closest('.section');
+  const isOpen  = section.classList.contains('open');
+  section.classList.toggle('open', !isOpen);
+  hdr.setAttribute('aria-expanded', !isOpen);
+}
+
+// ── Active nav on scroll ─────────────────────────────────────
+const sections = document.querySelectorAll('.section[id]');
+const navLinks  = document.querySelectorAll('.nav-list a[href^="#"]');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.25, rootMargin: '-60px 0px -60% 0px' });
+
+sections.forEach(s => observer.observe(s));
+
+// ── Back to top ───────────────────────────────────────────────
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll', () => {
+  backTop.classList.toggle('visible', window.scrollY > 300);
+});
+
+// ── Auto-open section on hash navigation ─────────────────────
+function openFromHash() {
+  const id = location.hash.replace('#','');
+  if (!id) return;
+  const target = document.getElementById(id);
+  if (!target) return;
+  const section = target.closest('.section') || target;
+  if (section.classList.contains('section')) {
+    section.classList.add('open');
+    section.querySelector('.section-hdr')?.setAttribute('aria-expanded','true');
+    setTimeout(() => target.scrollIntoView({behavior:'smooth', block:'start'}), 100);
+  }
+}
+window.addEventListener('hashchange', openFromHash);
+openFromHash();
+</script>
+
+</body>
+</html>
