@@ -21,6 +21,8 @@
   --blanco:     #ffffff;
   --verde:      #166534;
   --verde-l:    #dcfce7;
+  --azul:       #1d4ed8;
+  --azul-l:     #dbeafe;
   --fn:         'DM Sans', system-ui, sans-serif;
   --fd:         'DM Serif Display', Georgia, serif;
   --fm:         'Source Code Pro', monospace;
@@ -171,6 +173,13 @@ a { color: inherit; text-decoration: none }
   background: var(--verde-l);
   border-left-color: var(--verde);
 }
+.nav-item.azul a:hover, .nav-item.azul a.active {
+  color: var(--azul);
+  background: var(--azul-l);
+  border-left-color: var(--azul);
+}
+.nav-item.sub.azul a { padding-left: 28px; font-size: .75rem; color: #60a5fa }
+.nav-item.sub.azul a:hover { color: var(--azul); background: var(--azul-l); border-left-color: var(--azul) }
 
 /* ─── MAIN CONTENT ──────────────────────────────────────────── */
 .content { display: flex; flex-direction: column; gap: 20px }
@@ -202,6 +211,12 @@ a { color: inherit; text-decoration: none }
   border-bottom-color: var(--gris-b);
   background: var(--ucm-ll);
 }
+
+/* Azul variant for UniversiDATA */
+.section.azul .section-hdr:hover { background: #eff6ff }
+.section.azul.open .section-hdr { background: #eff6ff; border-bottom-color: #bfdbfe }
+.section.azul .section-hdr-icon { background: var(--azul-l); color: var(--azul) }
+.section.azul.open .section-hdr-icon { background: var(--azul); color: var(--blanco) }
 
 .section-hdr-icon {
   width: 34px; height: 34px;
@@ -293,6 +308,102 @@ a { color: inherit; text-decoration: none }
 .card:hover::before { transform: scaleY(1) }
 .card.verde::before { background: var(--verde) }
 .card.verde:hover { border-color: var(--verde-l) }
+.card.azul::before { background: var(--azul) }
+.card.azul:hover { border-color: #bfdbfe }
+
+/* ─── UNIVERSIDATA cards special styling ──────────────────── */
+.universidata-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.universidata-card {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all var(--dur) var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.universidata-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--azul);
+  border-radius: 0 2px 2px 0;
+  transform: scaleY(0);
+  transition: transform var(--dur) var(--ease);
+  transform-origin: bottom;
+}
+.universidata-card:hover {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  box-shadow: var(--sh-m);
+  transform: translateY(-2px);
+  border-color: #93c5fd;
+}
+.universidata-card:hover::before { transform: scaleY(1) }
+
+.universidata-card-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+.universidata-card-title {
+  font-size: .92rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  line-height: 1.3;
+}
+.universidata-card-desc {
+  font-size: .8rem;
+  color: #1e40af;
+  line-height: 1.5;
+  flex: 1;
+}
+.universidata-card-actions { margin-top: 4px }
+
+.btn-azul {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  border-radius: 7px;
+  font-size: .73rem;
+  font-weight: 700;
+  font-family: var(--fn);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: all var(--dur) var(--ease);
+  border: none;
+  white-space: nowrap;
+  background: var(--azul);
+  color: var(--blanco);
+}
+.btn-azul:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(29,78,216,.3);
+}
+
+.universidata-note {
+  margin: 0 20px 20px;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: .78rem;
+  color: #0369a1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
 .card-title {
   font-size: .85rem;
@@ -351,29 +462,6 @@ a { color: inherit; text-decoration: none }
   flex-shrink: 0;
 }
 .card-wide .card-body { flex: 1 }
-
-/* ─── UNIVERSIDATA BLOCK ────────────────────────────────────── */
-.universidata {
-  background: linear-gradient(135deg, #e0f0ff 0%, #dbeafe 100%);
-  border: 1px solid #bfdbfe;
-  border-radius: 12px;
-  padding: 18px 20px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin: 0 20px 20px;
-}
-.universidata-icon {
-  font-size: 28px;
-  flex-shrink: 0;
-}
-.universidata p {
-  font-size: .85rem;
-  color: #1e40af;
-  line-height: 1.5;
-  flex: 1;
-}
-.universidata strong { font-weight: 700 }
 
 /* ─── FOOTER ─────────────────────────────────────────────────── */
 .footer {
@@ -434,6 +522,8 @@ a { color: inherit; text-decoration: none }
 .section:nth-child(6) { animation-delay: .30s }
 .section:nth-child(7) { animation-delay: .35s }
 .section:nth-child(8) { animation-delay: .40s }
+.section:nth-child(9) { animation-delay: .45s }
+.section:nth-child(10) { animation-delay: .50s }
 </style>
 </head>
 <body>
@@ -444,7 +534,7 @@ a { color: inherit; text-decoration: none }
     <div class="hero-icon">📄</div>
     <div class="hero-text">
       <h1>Contratos</h1>
-      <p><p>Actividad contractual de la UCM. Ley 9/2017 de Contratos del Sector Público.</p>
+      <p>Actividad contractual de la UCM. Ley 9/2017 de Contratos del Sector Público.</p>
     </div>
   </div>
 </header>
@@ -466,7 +556,9 @@ a { color: inherit; text-decoration: none }
       <li class="nav-divider"></li>
       <li class="nav-item verde"><a href="#concesiones"><span class="nav-num">8</span> Concesiones</a></li>
       <li class="nav-item verde"><a href="#encomiendas"><span class="nav-num">9</span> Encomiendas</a></li>
-      <li class="nav-item verde"><a href="#universidata"><span class="nav-num">10</span> UniversiDATA</a></li>
+      <li class="nav-item azul"><a href="#universidata"><span class="nav-num">10</span> UniversiDATA</a></li>
+      <li class="nav-item sub azul"><a href="#universidata">↳ Visor de licitaciones</a></li>
+      <li class="nav-item sub azul"><a href="#universidata">↳ Contratos mayores</a></li>
     </ul>
   </nav>
 
@@ -491,44 +583,44 @@ a { color: inherit; text-decoration: none }
             <div class="card">
               <div class="card-title">Información general del Órgano de Contratación</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/informacion-general-organo-contratacion" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver información general del Órgano de Contratación">Ver →</a>
+                <a href="https://www.ucm.es/portaldetransparencia/informacion-general-organo-contratacion" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
             <div class="card">
               <div class="card-title">Procedimientos de contratación</div>
               <div class="card-desc">Gestión de los contratos</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/tipos-de-contratos" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver procedimientos de contratación">Ver →</a>
+                <a href="https://www.ucm.es/tipos-de-contratos" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
             <div class="card">
               <div class="card-title">Plan de medidas antifraude</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/file/plan-de-medidas-antifraude" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar Plan de medidas antifraude en PDF">⬇ PDF</a>
+                <a href="https://www.ucm.es/portaldetransparencia/file/plan-de-medidas-antifraude" class="btn btn-ghost" target="_blank" rel="noopener">⬇ PDF</a>
               </div>
             </div>
             <div class="card">
               <div class="card-title">Factura electrónica en la UCM</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/ucpe/factura-electronica" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver información sobre factura electrónica">Ver →</a>
+                <a href="https://www.ucm.es/ucpe/factura-electronica" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
             <div class="card">
               <div class="card-title">Normativa de aplicación</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/normativa-de-aplicacion" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver normativa de aplicación">Ver →</a>
+                <a href="https://www.ucm.es/normativa-de-aplicacion" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
             <div class="card">
               <div class="card-title">Licitaciones anteriores a la Ley 9/2017</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/contratos" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver licitaciones anteriores a la Ley 9/2017">Ver →</a>
+                <a href="https://www.ucm.es/contratos" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
             <div class="card">
               <div class="card-title">Plan de contratación UCM 2026</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/file/plan-contratacion" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar Plan de contratación UCM 2026 en PDF">⬇ PDF</a>
+                <a href="https://www.ucm.es/portaldetransparencia/file/plan-contratacion" class="btn btn-ghost" target="_blank" rel="noopener">⬇ PDF</a>
               </div>
             </div>
           </div>
@@ -558,7 +650,7 @@ a { color: inherit; text-decoration: none }
                 <div class="card-desc">Consulte todos los expedientes de contratación pública de la UCM en el portal oficial del Estado.</div>
               </div>
               <div class="card-actions">
-                <a href="https://contrataciondelestado.es/wps/portal/plataforma" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Acceder a la Plataforma de Contratación del Sector Público">Acceder ↗</a>
+                <a href="https://contrataciondelestado.es/wps/portal/plataforma" class="btn btn-rojo" target="_blank" rel="noopener">Acceder ↗</a>
               </div>
             </div>
           </div>
@@ -588,7 +680,7 @@ a { color: inherit; text-decoration: none }
                 <div class="card-desc">Consulte las empresas y personas que han resultado adjudicatarias de los contratos de la UCM (2021–2025).</div>
               </div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/adjudicatarios-contratos" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver listado de adjudicatarios">Ver →</a>
+                <a href="https://www.ucm.es/portaldetransparencia/adjudicatarios-contratos" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
           </div>
@@ -615,28 +707,28 @@ a { color: inherit; text-decoration: none }
               <div class="card-title">Contratos menores, privados y emergencias</div>
               <div class="card-desc">Relación de contratos menores formalizados por la UCM por ejercicio.</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/contratos-menores-privados-emergencias" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver contratos menores, privados y emergencias">Ver →</a>
+                <a href="https://www.ucm.es/portaldetransparencia/contratos-menores-privados-emergencias" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
             <div class="card" id="acuerdos">
               <div class="card-title">Contratos basados en Acuerdos Marco</div>
               <div class="card-desc">Contratos adjudicados a través de acuerdos marco vigentes.</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/contratos-acuerdos-marco" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver contratos basados en acuerdos marco">Ver →</a>
+                <a href="https://www.ucm.es/portaldetransparencia/contratos-acuerdos-marco" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
             <div class="card" id="adjudicados">
               <div class="card-title">Contratos adjudicados</div>
               <div class="card-desc">Procedimientos abiertos y negociados. Contratos formalizados por la UCM mediante licitación.</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/contratos-adjudicados" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver contratos adjudicados">Ver →</a>
+                <a href="https://www.ucm.es/portaldetransparencia/contratos-adjudicados" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
             <div class="card" id="obras">
               <div class="card-title">Contratos de obras</div>
               <div class="card-desc">Relación de contratos de obras adjudicados por la UCM por ejercicio.</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/contratos-obras" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver contratos de obras">Ver →</a>
+                <a href="https://www.ucm.es/portaldetransparencia/contratos-obras" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
           </div>
@@ -663,21 +755,21 @@ a { color: inherit; text-decoration: none }
               <div class="card-title">Modificaciones de contratos</div>
               <div class="card-desc">Cambios en el objeto, precio o plazo de contratos ya adjudicados.</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/modificaciones-de-contratos" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver modificaciones de contratos">Ver →</a>
+                <a href="https://www.ucm.es/portaldetransparencia/modificaciones-de-contratos" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
             <div class="card">
               <div class="card-title">Prórrogas de contratos</div>
               <div class="card-desc">Extensión de la duración de contratos en vigor.</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/prorrogas-de-contratos" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver prórrogas de contratos">Ver →</a>
+                <a href="https://www.ucm.es/portaldetransparencia/prorrogas-de-contratos" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
             <div class="card">
               <div class="card-title">Desistimientos</div>
               <div class="card-desc">Contratos en los que la UCM ha desistido del procedimiento de adjudicación.</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/desistimientos" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver desistimientos de contratos">Ver →</a>
+                <a href="https://www.ucm.es/portaldetransparencia/desistimientos" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
           </div>
@@ -690,14 +782,14 @@ a { color: inherit; text-decoration: none }
                   <div class="card-title">Resoluciones de contratos</div>
                   <div class="card-desc">Extinción anticipada de contratos por las causas previstas en la ley.</div>
                   <div class="card-actions">
-                    <a href="https://www.ucm.es/portaldetransparencia/resoluciones" class="btn btn-verde" target="_blank" rel="noopener" aria-label="Ver resoluciones de contratos">Ver →</a>
+                    <a href="https://www.ucm.es/portaldetransparencia/resoluciones" class="btn btn-verde" target="_blank" rel="noopener">Ver →</a>
                   </div>
                 </div>
                 <div class="card verde" style="flex:1;min-width:200px">
                   <div class="card-title">Penalidades</div>
                   <div class="card-desc">Sanciones económicas impuestas a contratistas por incumplimiento.</div>
                   <div class="card-actions">
-                    <a href="https://www.ucm.es/portaldetransparencia/penalidades-contratos" class="btn btn-verde" target="_blank" rel="noopener" aria-label="Ver penalidades de contratos">Ver →</a>
+                    <a href="https://www.ucm.es/portaldetransparencia/penalidades-contratos" class="btn btn-verde" target="_blank" rel="noopener">Ver →</a>
                   </div>
                 </div>
               </div>
@@ -729,7 +821,7 @@ a { color: inherit; text-decoration: none }
                 <div class="card-desc">Consulte los informes de facturación anuales de la UCM facilitados por la Vicegerencia Económica.</div>
               </div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/informe-facturacion-anual" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver ejercicios anteriores de facturación anual">Ver →</a>
+                <a href="https://www.ucm.es/portaldetransparencia/informe-facturacion-anual" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
           </div>
@@ -756,21 +848,21 @@ a { color: inherit; text-decoration: none }
               <div class="card-title">Contratos formalizados por importe</div>
               <div class="card-desc">Distribución de los contratos adjudicados según el tipo de procedimiento y el importe.</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/informe-contratos-procedimientos-adjudicacion" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver contratos formalizados por importe">Ver →</a>
+                <a href="https://www.ucm.es/portaldetransparencia/informe-contratos-procedimientos-adjudicacion" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
             <div class="card">
               <div class="card-title">Contratos formalizados por número</div>
               <div class="card-desc">Distribución de los contratos adjudicados según el tipo de procedimiento y número de contratos.</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/contratos-formalizados-numero" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver contratos formalizados por número">Ver →</a>
+                <a href="https://www.ucm.es/portaldetransparencia/contratos-formalizados-numero" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
             <div class="card">
               <div class="card-title">Datos estadísticos</div>
               <div class="card-desc">Gráficos interactivos sobre contratos por tipo de procedimiento y contrato, en número e importe.</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/estadisticas-contratos" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver datos estadísticos de contratos">Ver →</a>
+                <a href="https://www.ucm.es/portaldetransparencia/estadisticas-contratos" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
           </div>
@@ -797,21 +889,21 @@ a { color: inherit; text-decoration: none }
               <div class="card-title">Contratos de concesiones de obras o de servicios</div>
               <div class="card-desc">Ejercicio 2024</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/file/concesion-2024" class="btn btn-rojo" target="_blank" rel="noopener" aria-label="Ver concesiones 2024">Ver →</a>
+                <a href="https://www.ucm.es/portaldetransparencia/file/concesion-2024" class="btn btn-rojo" target="_blank" rel="noopener">Ver →</a>
               </div>
             </div>
             <div class="card">
               <div class="card-title">Concesión directa — Cuartel de Inválidos y Voluntarios a Caballo</div>
               <div class="card-desc">San Lorenzo de El Escorial</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/file/convenio_slorenzoescorial_concesion_o_c" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar concesión directa San Lorenzo de El Escorial">⬇ PDF</a>
+                <a href="https://www.ucm.es/portaldetransparencia/file/convenio_slorenzoescorial_concesion_o_c" class="btn btn-ghost" target="_blank" rel="noopener">⬇ PDF</a>
               </div>
             </div>
             <div class="card">
               <div class="card-title">Concesión demanial — Aparcamiento subterráneo Plaza Ramón y Cajal</div>
               <div class="card-desc">Ciudad Universitaria</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/file/acuerdoconcesiondemanial_parking-cu_o" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar concesión demanial aparcamiento Ciudad Universitaria">⬇ PDF</a>
+                <a href="https://www.ucm.es/portaldetransparencia/file/acuerdoconcesiondemanial_parking-cu_o" class="btn btn-ghost" target="_blank" rel="noopener">⬇ PDF</a>
               </div>
             </div>
           </div>
@@ -838,28 +930,28 @@ a { color: inherit; text-decoration: none }
               <div class="card-title">Encargo UCM a la FGUCM (medio propio)</div>
               <div class="card-desc">Gestión y desarrollo de proyectos y actividades 2021–2025.</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/file/encargo-mp-fgucm-2021-2025" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar encargo UCM a FGUCM">⬇ PDF</a>
+                <a href="https://www.ucm.es/portaldetransparencia/file/encargo-mp-fgucm-2021-2025" class="btn btn-ghost" target="_blank" rel="noopener">⬇ PDF</a>
               </div>
             </div>
             <div class="card">
               <div class="card-title">Convenio UCM – Fundación MADRIMASD</div>
               <div class="card-desc">Encomienda para evaluación de solicitudes de cambio de área de conocimiento del PDI.</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/file/encomienda-de-gestion-madrimasd" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar convenio UCM MADRIMASD">⬇ PDF</a>
+                <a href="https://www.ucm.es/portaldetransparencia/file/encomienda-de-gestion-madrimasd" class="btn btn-ghost" target="_blank" rel="noopener">⬇ PDF</a>
               </div>
             </div>
             <div class="card">
               <div class="card-title">Encomienda de gestión ANECA – UCM</div>
               <div class="card-desc">Evaluación de la actividad investigadora del PDI contratado.</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/file/encomienda-de-gestion-aneca" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar encomienda de gestión ANECA">⬇ PDF</a>
+                <a href="https://www.ucm.es/portaldetransparencia/file/encomienda-de-gestion-aneca" class="btn btn-ghost" target="_blank" rel="noopener">⬇ PDF</a>
               </div>
             </div>
             <div class="card">
               <div class="card-title">Prórroga del encargo UCM a la FGUCM</div>
               <div class="card-desc">Resolución del Rector: prórroga del encargo a medio propio.</div>
               <div class="card-actions">
-                <a href="https://www.ucm.es/portaldetransparencia/file/prorroga-encargo-fgucm-1" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Descargar prórroga encargo FGUCM">⬇ PDF</a>
+                <a href="https://www.ucm.es/portaldetransparencia/file/prorroga-encargo-fgucm-1" class="btn btn-ghost" target="_blank" rel="noopener">⬇ PDF</a>
               </div>
             </div>
           </div>
@@ -868,11 +960,11 @@ a { color: inherit; text-decoration: none }
     </div>
 
     <!-- 10. UNIVERSIDATA -->
-    <div class="section" id="universidata">
+    <div class="section azul" id="universidata">
       <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
         <div class="section-hdr-icon">🔢</div>
         <div class="section-hdr-text">
-          <h2>UniversiDATA. Licitaciones contratos mayores</h2>
+          <h2>UniversiDATA</h2>
           <span>Portal de datos abiertos del Centro de Inteligencia Institucional</span>
         </div>
         <div class="section-chevron">
@@ -881,11 +973,36 @@ a { color: inherit; text-decoration: none }
       </div>
       <div class="section-body">
         <div class="section-body-inner">
-          <div class="universidata">
-            <div class="universidata-icon">📡</div>
-            <p>En el Portal de datos abiertos puede obtenerse información sobre licitaciones de contratos mayores de la UCM.
-              Gestionado por el <a href="https://ucm.es/cii" style="color:#1d4ed8;font-weight:600" target="_blank" rel="noopener">Centro de Inteligencia Institucional</a>.</p>
-            <a href="https://www.universidata.es/datasets/ucm-licitaciones-de-contratos-mayores" class="btn" style="background:#1d4ed8;color:#fff;flex-shrink:0" target="_blank" rel="noopener" aria-label="Acceder a UniversiDATA licitaciones contratos mayores">Acceder ↗</a>
+          <div class="universidata-note">
+            📡 Portal de datos abiertos gestionado por el
+            <a href="https://ucm.es/cii" style="color:#0369a1;font-weight:700;text-decoration:underline" target="_blank" rel="noopener">Centro de Inteligencia Institucional</a>.
+          </div>
+          <div class="universidata-cards">
+
+            <!-- Visor de licitaciones -->
+            <div class="universidata-card">
+              <div class="universidata-card-icon">🔍</div>
+              <div class="universidata-card-title">Visor de licitaciones</div>
+              <div class="universidata-card-desc">
+                Herramienta interactiva para explorar y visualizar las licitaciones de contratos de la UCM. Permite filtrar por tipo, importe, estado y adjudicatario.
+              </div>
+              <div class="universidata-card-actions">
+                <a href="https://www.universidata.es/aplicaciones/visor-de-licitaciones" class="btn-azul" target="_blank" rel="noopener" aria-label="Acceder al Visor de licitaciones de UniversiDATA">Acceder al visor ↗</a>
+              </div>
+            </div>
+
+            <!-- Licitaciones contratos mayores -->
+            <div class="universidata-card">
+              <div class="universidata-card-icon">📦</div>
+              <div class="universidata-card-title">Licitaciones de contratos mayores</div>
+              <div class="universidata-card-desc">
+                Dataset abierto con información detallada sobre las licitaciones de contratos mayores de la UCM, disponible para su descarga y reutilización.
+              </div>
+              <div class="universidata-card-actions">
+                <a href="https://www.universidata.es/datasets/ucm-licitaciones-de-contratos-mayores" class="btn-azul" target="_blank" rel="noopener" aria-label="Ver dataset de licitaciones de contratos mayores en UniversiDATA">Ver dataset ↗</a>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -898,7 +1015,6 @@ a { color: inherit; text-decoration: none }
 <footer class="footer">
   <div>Datos facilitados y extraídos de la <a href="https://www.ucm.es/directorio/?eid=1003" target="_blank" rel="noopener">Dirección de la Contratación Administrativa ↗</a></div>
   <div>Informe de facturación anual facilitado por la <a href="https://www.ucm.es/directorio/?eid=962" target="_blank" rel="noopener">Vicegerencia Económica ↗</a></div>
-  <div>UniversiDATA: portal de datos abiertos del <a href="https://ucm.es/cii" target="_blank" rel="noopener">Centro de Inteligencia Institucional ↗</a></div>
 </footer>
 
 <!-- BACK TO TOP -->
