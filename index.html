@@ -524,6 +524,80 @@ a { color: inherit; text-decoration: none }
 .section:nth-child(8) { animation-delay: .40s }
 .section:nth-child(9) { animation-delay: .45s }
 .section:nth-child(10) { animation-delay: .50s }
+.section:nth-child(11) { animation-delay: .55s }
+
+/* ─── PLAN DE CONTRATACIÓN ───────────────────────────────── */
+.plan-content { padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 16px }
+
+.plan-download-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--ucm-ll);
+  border: 1px solid var(--ucm-l);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: .83rem;
+  font-weight: 600;
+  color: var(--gris);
+  flex-wrap: wrap;
+}
+
+.plan-intro {
+  font-size: .8rem;
+  color: var(--gris-m);
+  line-height: 1.65;
+  background: var(--gris-c);
+  border-radius: 8px;
+  padding: 12px 16px;
+  border-left: 3px solid var(--ucm-l);
+}
+
+.plan-category { display: flex; flex-direction: column; gap: 8px }
+
+.plan-category-title {
+  font-size: .78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--ucm);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--ucm-l);
+}
+
+.plan-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.plan-item {
+  font-size: .8rem;
+  color: var(--gris);
+  line-height: 1.5;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--gris-c);
+  border: 1px solid transparent;
+  transition: all var(--dur) var(--ease);
+}
+.plan-item:hover { background: var(--blanco); border-color: var(--gris-b) }
+
+.plan-item-amount {
+  font-family: var(--fm);
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--ucm-d);
+}
+.plan-item-period {
+  font-size: .72rem;
+  color: var(--gris-m);
+  background: var(--gris-b);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
 </style>
 </head>
 <body>
@@ -548,15 +622,16 @@ a { color: inherit; text-decoration: none }
     <ul class="nav-list">
       <li class="nav-item"><a href="#perfil"><span class="nav-num">1</span> Perfil del contratante</a></li>
       <li class="nav-item"><a href="#plataforma"><span class="nav-num">2</span> Plataforma PLACSP</a></li>
-      <li class="nav-item"><a href="#adjudicatarios"><span class="nav-num">3</span> Adjudicatarios</a></li>
-      <li class="nav-item"><a href="#relacion"><span class="nav-num">4</span> Relación de contratos</a></li>
-      <li class="nav-item"><a href="#modificaciones"><span class="nav-num">5</span> Modificaciones y prórrogas</a></li>
-      <li class="nav-item"><a href="#facturacion"><span class="nav-num">6</span> Facturación anual</a></li>
-      <li class="nav-item"><a href="#procedimiento"><span class="nav-num">7</span> Procedimiento adjudicación</a></li>
+      <li class="nav-item"><a href="#plan2026"><span class="nav-num">3</span> Plan de contratación 2026</a></li>
+      <li class="nav-item"><a href="#adjudicatarios"><span class="nav-num">4</span> Adjudicatarios</a></li>
+      <li class="nav-item"><a href="#relacion"><span class="nav-num">5</span> Relación de contratos</a></li>
+      <li class="nav-item"><a href="#modificaciones"><span class="nav-num">6</span> Modificaciones y prórrogas</a></li>
+      <li class="nav-item"><a href="#facturacion"><span class="nav-num">7</span> Facturación anual</a></li>
+      <li class="nav-item"><a href="#procedimiento"><span class="nav-num">8</span> Procedimiento adjudicación</a></li>
       <li class="nav-divider"></li>
-      <li class="nav-item verde"><a href="#concesiones"><span class="nav-num">8</span> Concesiones</a></li>
-      <li class="nav-item verde"><a href="#encomiendas"><span class="nav-num">9</span> Encomiendas</a></li>
-      <li class="nav-item azul"><a href="#universidata"><span class="nav-num">10</span> UniversiDATA</a></li>
+      <li class="nav-item verde"><a href="#concesiones"><span class="nav-num">9</span> Concesiones</a></li>
+      <li class="nav-item verde"><a href="#encomiendas"><span class="nav-num">10</span> Encomiendas</a></li>
+      <li class="nav-item azul"><a href="#universidata"><span class="nav-num">11</span> UniversiDATA</a></li>
       <li class="nav-item sub azul"><a href="#universidata">↳ Visor de licitaciones</a></li>
       <li class="nav-item sub azul"><a href="#universidata">↳ Contratos mayores</a></li>
     </ul>
@@ -658,7 +733,89 @@ a { color: inherit; text-decoration: none }
       </div>
     </div>
 
-    <!-- 3. ADJUDICATARIOS -->
+    <!-- 3. PLAN DE CONTRATACIÓN 2026 -->
+    <div class="section" id="plan2026">
+      <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
+        <div class="section-hdr-icon">📋</div>
+        <div class="section-hdr-text">
+          <h2>Plan anual de contratación 2026</h2>
+          <span>Contratos previstos para licitar durante el ejercicio 2026 (art. 28.4 LCSP)</span>
+        </div>
+        <div class="section-chevron">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+          <div class="plan-content">
+
+            <!-- Descarga -->
+            <div class="plan-download-bar">
+              <span>📄 Documento completo del Plan Anual de Contratación 2026</span>
+              <a href="https://www.ucm.es/portaldetransparencia/plan-contratacion-2026" class="btn btn-rojo" target="_blank" rel="noopener">⬇ Descargar PDF</a>
+            </div>
+
+            <!-- Introducción -->
+            <div class="plan-intro">
+              En cumplimiento del artículo 28.4 de la Ley 9/2017, de Contratos del Sector Público (LCSP), y del artículo 6.2 de la Ley 19/2013 de transparencia y buen gobierno, la UCM publica su Plan de contratación para el ejercicio 2026. Sus objetivos son el fomento de la transparencia, la mejora en la concurrencia de las licitaciones y la racionalización del gasto público. Este documento recoge los contratos que se prevé licitar durante 2026, sin incluir prórrogas de contratos anteriores ni contratos menores. Tiene carácter orientativo y no vinculante, sujeto a disponibilidad presupuestaria.
+            </div>
+
+            <!-- Categoría 1: Equipamiento científico y servicios generales -->
+            <div class="plan-category">
+              <div class="plan-category-title">Equipamiento científico y servicios generales</div>
+              <ul class="plan-items">
+                <li class="plan-item">Criosonda para el equipo de 700 MHz — <span class="plan-item-amount">348.180,91 €</span> — <span class="plan-item-period">2.º semestre</span></li>
+                <li class="plan-item">Microscopio confocal espectral de última generación con microscopía Lightsheet — <span class="plan-item-amount">483.988,89 €</span> — <span class="plan-item-period">2.º semestre</span></li>
+                <li class="plan-item">Sistema de control de accesos para instalaciones de contención biológica — <span class="plan-item-amount">105.778,81 €</span> — <span class="plan-item-period">2.º semestre</span></li>
+                <li class="plan-item">Sistema de secuenciación MiSeq i100 Plus — <span class="plan-item-amount">126.330,05 €</span> — <span class="plan-item-period">2.º semestre</span></li>
+                <li class="plan-item">Equipo de microscopía simultánea de fuerzas atómicas — <span class="plan-item-amount">1.642.187,80 €</span> — <span class="plan-item-period">1.er semestre</span></li>
+                <li class="plan-item">Plataforma de venta de entradas — <span class="plan-item-amount">450.000,00 €</span> — <span class="plan-item-period">1.er semestre</span></li>
+                <li class="plan-item">Mobiliario del edificio de Económicas — <span class="plan-item-amount">1.485.485,54 €</span> — <span class="plan-item-period">1.er semestre</span></li>
+                <li class="plan-item">170 licencias de simuladores Cesim — <span class="plan-item-amount">73.543,80 €</span> — <span class="plan-item-period">1.er semestre</span></li>
+                <li class="plan-item">Servicio de gestión, ingeniería de sistemas y calidad – Óptica MOSAIC — <span class="plan-item-amount">300.128,40 €</span> — <span class="plan-item-period">1.er semestre</span></li>
+                <li class="plan-item">Acuerdo marco: reparaciones inferiores a 15.000 € (IVA excluido) — <span class="plan-item-amount">5.953.200,00 €</span> — <span class="plan-item-period">1.er semestre</span></li>
+                <li class="plan-item">Consultoría para revisión de propuestas Horizonte Europa — <span class="plan-item-amount">13.860,00 €</span> — <span class="plan-item-period">1.er semestre</span></li>
+                <li class="plan-item">Base de datos — <span class="plan-item-amount">134.284,23 €</span> — <span class="plan-item-period">1.er semestre</span></li>
+                <li class="plan-item">Seguros de la flota de vehículos — <span class="plan-item-amount">33.000,00 €</span> — <span class="plan-item-period">1.er semestre</span></li>
+                <li class="plan-item">Cafeterías en varios centros UCM — <span class="plan-item-amount">sin coste</span> — <span class="plan-item-period">1.er semestre</span></li>
+                <li class="plan-item">Librería tienda Bellas Artes / Librería Psicología — <span class="plan-item-amount">sin coste</span> — <span class="plan-item-period">2.º semestre</span></li>
+              </ul>
+            </div>
+
+            <!-- Categoría 2: Tecnología y licencias de software -->
+            <div class="plan-category">
+              <div class="plan-category-title">Tecnología y licencias de software</div>
+              <ul class="plan-items">
+                <li class="plan-item">Licencias antiplagio Turnitin — <span class="plan-item-amount">80.000,00 €</span>  |  Antivirus Symantec — <span class="plan-item-amount">73.000,00 €</span>  |  UniversiDATA — <span class="plan-item-amount">15.000,00 €</span></li>
+                <li class="plan-item">Plataforma virtualización aulas informática — <span class="plan-item-amount">70.000,00 €</span>  |  Mantenimiento infraestructura computación — <span class="plan-item-amount">39.000,00 €</span></li>
+                <li class="plan-item">ORACLE — <span class="plan-item-amount">216.000,00 €</span>  |  OmnissaHorizon 8 — <span class="plan-item-amount">97.000,00 €</span>  |  SPSS — <span class="plan-item-amount">32.000,00 €</span>  |  Adobe Creative Cloud — <span class="plan-item-amount">34.000,00 €</span></li>
+                <li class="plan-item">MAPLE — <span class="plan-item-amount">47.000,00 €</span>  |  Matlab — <span class="plan-item-amount">85.000,00 €</span>  |  VMware — <span class="plan-item-amount">35.000,00 €</span>  |  ATLAS T.I. — <span class="plan-item-amount">8.200,00 €</span></li>
+                <li class="plan-item">Nextcloud — <span class="plan-item-amount">30.040,00 €</span>  |  Foxit — <span class="plan-item-amount">28.000,00 €</span>  |  FileMaker — <span class="plan-item-amount">15.300,00 €</span>  |  Alfresco/SAP — <span class="plan-item-amount">29.000,00 €</span></li>
+                <li class="plan-item">SUSE Linux — <span class="plan-item-amount">71.100,00 €</span>  |  SAP SCP — <span class="plan-item-amount">21.000,00 €</span>  |  MySQL — <span class="plan-item-amount">21.000,00 €</span>  |  Alfresco Content — <span class="plan-item-amount">95.000,00 €</span>  |  EasyVista — <span class="plan-item-amount">260.000,00 €</span></li>
+              </ul>
+            </div>
+
+            <!-- Categoría 3: Obras e infraestructuras -->
+            <div class="plan-category">
+              <div class="plan-category-title">Obras e infraestructuras</div>
+              <ul class="plan-items">
+                <li class="plan-item">Reforma cuadros eléctricos Fac. Políticas — <span class="plan-item-amount">813.029,55 €</span> <span class="plan-item-period">anticipada</span></li>
+                <li class="plan-item">Detección y alarma de incendios: Bellas Artes, CC. Documentación y Colegios Mayores — <span class="plan-item-amount">1.548.895,30 €</span> <span class="plan-item-period">anticipada</span></li>
+                <li class="plan-item">Detección y alarma de incendios: CC. Información y Derecho Biblioteca — <span class="plan-item-amount">745.869,51 €</span> <span class="plan-item-period">plurianual</span></li>
+                <li class="plan-item">Tratamiento humedades subcentrales calefacción fase 2 — <span class="plan-item-amount">368.614,41 €</span>  |  Reforma producción agua fría Psicología — <span class="plan-item-amount">350.179,60 €</span></li>
+                <li class="plan-item">Reforma eléctrica alta tensión Derecho — <span class="plan-item-amount">317.009,22 €</span>  |  Reparación fachadas Psicología — <span class="plan-item-amount">303.277,75 €</span></li>
+                <li class="plan-item">Demolición Edificio 3 Económicas — <span class="plan-item-amount">681.000,00 €</span>  |  Electricidad granja veterinaria — <span class="plan-item-amount">498.071,78 €</span>  |  PCI Educación — <span class="plan-item-amount">375.695,03 €</span></li>
+                <li class="plan-item">Cámaras frigoríficas Biológicas — <span class="plan-item-amount">253.566,39 €</span>  |  Sectorización Químicas — <span class="plan-item-amount">200.000,00 €</span></li>
+                <li class="plan-item">Otras actuaciones: humedades Medicina, reparaciones Derecho, torre refrigeración Físicas, elevador Bellas Artes, bancadas Biológicas, ITEs y actuaciones menores en diversas facultades.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. ADJUDICATARIOS -->
     <div class="section" id="adjudicatarios">
       <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
         <div class="section-hdr-icon">🏢</div>
@@ -688,7 +845,7 @@ a { color: inherit; text-decoration: none }
       </div>
     </div>
 
-    <!-- 4. RELACIÓN DE CONTRATOS -->
+    <!-- 5. RELACIÓN DE CONTRATOS -->
     <div class="section" id="relacion">
       <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
         <div class="section-hdr-icon">📂</div>
@@ -736,7 +893,7 @@ a { color: inherit; text-decoration: none }
       </div>
     </div>
 
-    <!-- 5. MODIFICACIONES, PRÓRROGAS Y DESISTIMIENTOS -->
+    <!-- 6. MODIFICACIONES, PRÓRROGAS Y DESISTIMIENTOS -->
     <div class="section" id="modificaciones">
       <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
         <div class="section-hdr-icon">🔄</div>
@@ -799,7 +956,7 @@ a { color: inherit; text-decoration: none }
       </div>
     </div>
 
-    <!-- 6. FACTURACIÓN ANUAL -->
+    <!-- 7. FACTURACIÓN ANUAL -->
     <div class="section" id="facturacion">
       <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
         <div class="section-hdr-icon">🧾</div>
@@ -829,7 +986,7 @@ a { color: inherit; text-decoration: none }
       </div>
     </div>
 
-    <!-- 7. PROCEDIMIENTO DE ADJUDICACIÓN -->
+    <!-- 8. PROCEDIMIENTO DE ADJUDICACIÓN -->
     <div class="section" id="procedimiento">
       <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
         <div class="section-hdr-icon">📈</div>
@@ -870,7 +1027,7 @@ a { color: inherit; text-decoration: none }
       </div>
     </div>
 
-    <!-- 8. CONCESIONES -->
+    <!-- 9. CONCESIONES -->
     <div class="section" id="concesiones">
       <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
         <div class="section-hdr-icon">🏗️</div>
@@ -911,51 +1068,50 @@ a { color: inherit; text-decoration: none }
       </div>
     </div>
 
-    <!-- 9. ENCOMIENDAS -->
-<div class="section" id="encomiendas">
-  <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
-    <div class="section-hdr-icon">🤝</div>
-    <div class="section-hdr-text">
-      <h2>Encomiendas de gestión y encargos a medios propios</h2>
-      <span>Convenios y encargos institucionales</span>
-    </div>
-    <div class="section-chevron">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
-    </div>
-  </div>
-  <div class="section-body">
-    <div class="section-body-inner">
-      <div class="cards-grid cols-2">
-        <div class="card">
-          <div class="card-title">Encargo UCM a la FGUCM (medio propio)</div>
-          <div class="card-desc">Gestión y desarrollo de proyectos y actividades 2021–2025.</div>
-          <div class="card-actions">
-            <a href="https://www.ucm.es/portaldetransparencia/file/encargo-mp-fgucm-2021-2025" class="btn btn-ghost" target="_blank" rel="noopener">⬇ PDF</a>
-          </div>
+    <!-- 10. ENCOMIENDAS -->
+    <div class="section" id="encomiendas">
+      <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
+        <div class="section-hdr-icon">🤝</div>
+        <div class="section-hdr-text">
+          <h2>Encomiendas de gestión y encargos a medios propios</h2>
+          <span>Convenios y encargos institucionales</span>
         </div>
-        <div class="card">
-          <div class="card-title">Prórroga del encargo UCM a la FGUCM</div>
-          <div class="card-desc">Resolución del Rector: prórroga del encargo a medio propio.</div>
-          <div class="card-actions">
-            <a href="https://www.ucm.es/portaldetransparencia/file/prorroga-encargo-fgucm-1" class="btn btn-ghost" target="_blank" rel="noopener">⬇ PDF</a>
+        <div class="section-chevron">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+          <div class="cards-grid cols-2">
+            <div class="card">
+              <div class="card-title">Encargo UCM a la FGUCM (medio propio)</div>
+              <div class="card-desc">Gestión y desarrollo de proyectos y actividades 2021–2025.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/file/encargo-mp-fgucm-2021-2025" class="btn btn-ghost" target="_blank" rel="noopener">⬇ PDF</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Prórroga del encargo UCM a la FGUCM</div>
+              <div class="card-desc">Resolución del Rector: prórroga del encargo a medio propio.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/file/prorroga-encargo-fgucm-1" class="btn btn-ghost" target="_blank" rel="noopener">⬇ PDF</a>
+              </div>
+            </div>
+          </div>
+          <div class="cards-grid cols-2" style="max-width: 50%; margin: 0 auto;">
+            <div class="card">
+              <div class="card-title">Encomienda de gestión ANECA – UCM</div>
+              <div class="card-desc">Evaluación de la actividad investigadora del PDI contratado.</div>
+              <div class="card-actions">
+                <a href="https://www.ucm.es/portaldetransparencia/file/encomienda-de-gestion-aneca" class="btn btn-ghost" target="_blank" rel="noopener">⬇ PDF</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="cards-grid cols-2" style="max-width: 50%; margin: 0 auto;">
-        <div class="card">
-          <div class="card-title">Encomienda de gestión ANECA – UCM</div>
-          <div class="card-desc">Evaluación de la actividad investigadora del PDI contratado.</div>
-          <div class="card-actions">
-            <a href="https://www.ucm.es/portaldetransparencia/file/encomienda-de-gestion-aneca" class="btn btn-ghost" target="_blank" rel="noopener">⬇ PDF</a>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
 
-
-    <!-- 10. UNIVERSIDATA -->
+    <!-- 11. UNIVERSIDATA -->
     <div class="section azul" id="universidata">
       <div class="section-hdr" onclick="toggle(this)" aria-expanded="false">
         <div class="section-hdr-icon">🔢</div>
